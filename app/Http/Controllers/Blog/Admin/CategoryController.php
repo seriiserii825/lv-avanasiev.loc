@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = BlogCategory::all();
+        $categories = BlogCategory::paginate('4');
         return view('blog.admin.categories.index', compact('categories'));
     }
 

@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="navbar navbar-toggleable-md navbar-light bg-faded">
-                    <a class="btn btn-primary" href="{{ route('blog.admin.categories.create') }}">New</a>
+                    <a class="btn btn-primary" href="{{ route('admin_categories.create') }}">New</a>
                 </div>
                 <div class="card">
                     <div class="card-body">
@@ -18,15 +18,18 @@
                             </thead>
                             <tbody>
                             @foreach($categories as $category)
-                                @php /** @var \App\Models\BlogCategory $category */ @endphp
+{{--                                @php /** @var \App\Models\BlogCategory $category */ @endphp--}}
                                 <tr>
-                                    <td>{{ $category->id }}</td>
-                                    <td>{{ $category->name }}</td>
+                                    https://localhost:3000/admin/blog/admin_categories?page=2                                    <td>{{ $category->id }}</td>
+                                    <td>
+                                        <a href="{{ route('admin_categories.edit', $category->id) }}">{{ $category->name }}</a>
+                                    </td>
                                     <td>{{ $category->parent_id }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
+                        {{ $categories->links() }}
                     </div>
                 </div>
             </div>

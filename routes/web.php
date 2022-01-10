@@ -10,8 +10,10 @@ Route::group(['prefix' => 'blog'], function(){
     Route::resource('posts', '\App\Http\Controllers\Blog\PostController')->names('blog.posts');
 });
 
-Route::group(['prefix' => 'admin/blog'], function(){
-    Route::resource('categories', '\App\Http\Controllers\Blog\Admin\CategoryController')->except('show')->names('blog.admin.categories');
+Route::group(['prefix' => 'admin'], function(){
+    Route::group(['prefix' => 'blog'], function(){
+        Route::resource('admin_categories', '\App\Http\Controllers\Blog\Admin\CategoryController')->except('show');
+    });
 });
 
 Auth::routes();
