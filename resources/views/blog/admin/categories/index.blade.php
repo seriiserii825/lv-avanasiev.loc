@@ -18,9 +18,9 @@
                             </thead>
                             <tbody>
                             @foreach($categories as $category)
-{{--                                @php /** @var \App\Models\BlogCategory $category */ @endphp--}}
+                                @php /** @var \App\Models\BlogCategory $category */ @endphp
                                 <tr>
-                                    https://localhost:3000/admin/blog/admin_categories?page=2                                    <td>{{ $category->id }}</td>
+                                    <td>{{ $category->id }}</td>
                                     <td>
                                         <a href="{{ route('admin_categories.edit', $category->id) }}">{{ $category->name }}</a>
                                     </td>
