@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -31,12 +32,24 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        dd(__METHOD__);
+        $item = BlogCategory::findOrFail($id);
+        $categories = BlogCategory::all();
+        return view('blog.admin.categories.edit', compact('item', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
-        dd(__METHOD__);
+        $item = BlogCategory::find($id);
+        if (empty($item)) {
+            return back()->withErrors(["msg" => "not found category with id ${id}"])->withInput();
+        }
+        $data = $request->all();
+        try {
+            $item->fill($data)->save();
+            return redirect()->route('admin_categories.edit', $id)->with(['success' => 'Success save data']);
+        }catch (QueryException $exception) {
+            return back()->with(['error' => $exception->getMessage()]);
+        }
     }
 
     public function destroy($id)
