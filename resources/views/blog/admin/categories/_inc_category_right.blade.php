@@ -15,13 +15,11 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="created_at">Created at</label>
-                    <input type="date" id="created_at" class="form-control"
-                            value="{{ $item->created_at }}" disabled>
+                    <input type="text" id="created_at" class="form-control" value="{{ $item->created_at }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="updated_at">Updated at</label>
-                    <input type="date" id="updated_at" class="form-control"
-                           value="{{ $item->updated_at }}" disabled>
+                    <input type="text" id="updated_at" class="form-control" value="{{ $item->updated_at }}" disabled>
                 </div>
             </div>
         </div>
