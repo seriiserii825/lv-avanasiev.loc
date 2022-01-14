@@ -3,28 +3,43 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BlogCategory\BlogCategoryCreateRequest;
+use App\Http\Requests\BlogCategory\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = BlogCategory::paginate('20');
+        $categories = BlogCategory::query()->orderByDesc('updated_at')->paginate('20');
         return view('blog.admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
-        dd(__METHOD__);
+        $categories = BlogCategory::all();
+        return view('blog.admin.categories.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(BlogCategoryCreateRequest $request)
     {
-        dd(__METHOD__);
+       $data = $request->input();
+       if(empty($data['slug'])){
+           $data['slug'] = Str::slug($data['name']);
+       }
+       $item = new BlogCategory($data);
+       $item->save();
+
+        if ($item) {
+            return redirect()->route('admin_categories.index')->with('success', 'Category was created');
+        }else{
+            return redirect()->back()->withError(["msg" => "Save fails"])->withInput();
+        }
     }
 
     public function show($id)
@@ -39,17 +54,8 @@ class CategoryController extends Controller
         return view('blog.admin.categories.edit', compact('item', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(BlogCategoryUpdateRequest $request, $id)
     {
-        $rules = [
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'description' => 'nullable|min:6|max:500',
-            'parent_id' => 'nullable|integer|exists:blog_categories,id'
-        ];
-        $request->validate($rules);
-
-
         $item = BlogCategory::find($id);
         if (empty($item)) {
             return back()->with(["error" => "not found category with id ${id}"])->withInput();
