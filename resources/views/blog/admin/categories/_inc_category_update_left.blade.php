@@ -12,13 +12,11 @@
                     <div class="tab-pane active" id="mainData" role="tabpanel">
                         <div class="form-group">
                             <label for="name">Title</label>
-                            <input type="text" name="name" id="name" class="form-control"
-                                   minlength="3" required value="{{ old('name', $item->name) }}">
+                            <input type="text" name="name" id="name" class="form-control" minlength="3" required value="{{ old('name', $item->name) }}">
                         </div>
                         <div class="form-group">
                             <label for="slug">Slug</label>
-                            <input type="text" name="slug" id="slug" class="form-control"
-                                   minlength="3" required value="{{ old('slug', $item->slug) }}">
+                            <input type="text" name="slug" id="slug" class="form-control" minlength="3" value="{{ old('slug', $item->slug) }}">
                         </div>
                         <div class="form-group">
                             <label for="parent_id">Parent</label>

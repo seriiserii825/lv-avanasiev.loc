@@ -61,6 +61,9 @@ class CategoryController extends Controller
             return back()->with(["error" => "not found category with id ${id}"])->withInput();
         }
         $data = $request->all();
+        if(empty($data['slug'])){
+            $data['slug'] = Str::slug($data['name']);
+        }
         try {
             $item->fill($data)->save();
             return redirect()->route('admin_categories.edit', $id)->with(['success' => 'Success save data']);
