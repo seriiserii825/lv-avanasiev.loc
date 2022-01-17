@@ -14,7 +14,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = BlogCategory::paginate('20');
+        $categories = BlogCategory::query()->orderByDesc('updated_at')->paginate('20');
         return view('blog.admin.categories.index', compact('categories'));
     }
 
