@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\BlogCategoryRepository;
 use App\Http\Requests\Blog\BlogCategoryStoreRequest;
 use App\Http\Requests\Blog\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
@@ -13,7 +14,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = BlogCategory::query()->orderByDesc('updated_at')->paginate('20');
+        $categoryRepository = new BlogCategoryRepository();
+        $categories = $categoryRepository->getForComboBox();
         return view('blog.admin.categories.index', compact('categories'));
     }
 
