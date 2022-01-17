@@ -49,6 +49,9 @@ class CategoryController extends Controller
     public function edit($id, BlogCategoryRepository $blogCategoryRepository)
     {
         $item = $blogCategoryRepository->getEdit($id);
+        if (empty($item)) {
+            abort(404);
+        }
         $categories = $blogCategoryRepository->getForComboBox();
         return view('blog.admin.categories.edit', compact('item', 'categories'));
     }
