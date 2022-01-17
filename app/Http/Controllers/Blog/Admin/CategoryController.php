@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\BlogCategoryStoreRequest;
 use App\Http\Requests\Blog\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -22,9 +24,20 @@ class CategoryController extends Controller
         return view('blog.admin.categories.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(BlogCategoryStoreRequest $request)
     {
-        dd(__METHOD__);
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $item = BlogCategory::create($data);
+
+        if ($item) {
+            return redirect()->route('admin_categories.index')->with('success', 'Category was created');
+        } else {
+            return back()->withErrors(['msg' => 'Save error']);
+        }
     }
 
     public function show($id)
@@ -48,6 +61,10 @@ class CategoryController extends Controller
         }
 
         $data = $request->all();
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
 
         try {
             $item->fill($data)->save();
