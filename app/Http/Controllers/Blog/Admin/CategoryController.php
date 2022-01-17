@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\BlogCategoryRepository;
 use App\Http\Requests\BlogCategory\BlogCategoryCreateRequest;
 use App\Http\Requests\BlogCategory\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {

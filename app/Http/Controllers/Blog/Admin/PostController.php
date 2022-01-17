@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     private $blogPostRepository;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct(){
+        $this->blogPostRepository = app(BlogPostRepository::class);
+    }
+
     public function index()
     {
-        //
+        $posts = $this->blogPostRepository->getAllWithPaginate(4);
+        return view('blog.admin.posts.index', compact('posts'));
     }
 
     /**

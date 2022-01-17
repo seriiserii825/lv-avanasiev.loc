@@ -12,7 +12,8 @@ Route::group(['prefix' => 'blog'], function(){
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::group(['prefix' => 'blog'], function(){
-        Route::resource('admin_categories', '\App\Http\Controllers\Blog\Admin\CategoryController')->except('show');
+        Route::resource('admin_categories', '\App\Http\Controllers\Blog\Admin\CategoryController')->except(['show']);
+        Route::resource('admin_posts', '\App\Http\Controllers\Blog\Admin\PostController')->except(['show']);
     });
 });
 
