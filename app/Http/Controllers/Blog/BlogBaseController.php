@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 abstract class BlogBaseController extends Controller
 {
-    //
+    public function __construct(){
+
+    }
 }

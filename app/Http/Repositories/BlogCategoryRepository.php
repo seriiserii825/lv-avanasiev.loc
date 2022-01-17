@@ -25,12 +25,31 @@ class BlogCategoryRepository extends CoreRepository
         return $this->startConditions()->find($id);
     }
 
-    /**
-     * Get category list for admin
-     * @return Collection
-     */
     public function getForComboBox()
     {
-        return $this->startConditions()->all();
+        $columns = implode(', ', [
+            'id',
+            'CONCAT (id, ". ", name) as id_name',
+            'parent_id',
+            'name'
+        ]);
+        $result = $this
+            ->startConditions()
+            ->selectRaw($columns)
+            ->toBase()
+            ->get();
+        return $result;
+    }
+
+    /**
+     * @param $count
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getAllWithPaginate($count = null)
+    {
+        $fields = ['id', 'name', 'parent_id'];
+        return $this->startConditions()
+            ->select($fields)
+            ->paginate($count);
     }
 }

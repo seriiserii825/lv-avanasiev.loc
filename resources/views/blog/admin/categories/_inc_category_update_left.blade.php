@@ -27,8 +27,7 @@
                                     placeholder="Choose category">
                                 @foreach($categories as $categoryOption)
                                     @php /** @var \App\Models\BlogCategory $categoryOption  */ @endphp
-                                    <option value="{{ $categoryOption->id }}"
-                                            @if($categoryOption->id === $item->parent_id) selected @endif>{{ $categoryOption->name }}</option>
+                                    <option value="{{ $categoryOption->id }}" @if($categoryOption->id === $item->parent_id) selected @endif>{{ $categoryOption->id_name }}</option>
                                 @endforeach
                             </select>
                         </div>

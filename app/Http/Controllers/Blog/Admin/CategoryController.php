@@ -12,16 +12,21 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    private $blogCategoryRepository;
+    public function __construct()
+    {
+       $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+    }
+
     public function index()
     {
-        $categoryRepository = new BlogCategoryRepository();
-        $categories = $categoryRepository->getForComboBox();
+        $categories = $this->blogCategoryRepository->getAllWithPaginate(5);
         return view('blog.admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
-        $categories = BlogCategory::all();
+        $categories = $this->blogCategoryRepository->getForComboBox();
         return view('blog.admin.categories.create', compact('categories'));
     }
 
