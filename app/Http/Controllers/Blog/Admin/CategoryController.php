@@ -46,10 +46,10 @@ class CategoryController extends Controller
         dd(__METHOD__);
     }
 
-    public function edit($id)
+    public function edit($id, BlogCategoryRepository $blogCategoryRepository)
     {
-        $item = BlogCategory::findOrFail($id);
-        $categories = BlogCategory::all();
+        $item = $blogCategoryRepository->getEdit($id);
+        $categories = $blogCategoryRepository->getForComboBox();
         return view('blog.admin.categories.edit', compact('item', 'categories'));
     }
 
