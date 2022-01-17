@@ -14,6 +14,12 @@ use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
+    private $blogCategoryRepository;
+    public function __construct()
+    {
+       $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+    }
+
     public function index()
     {
         $categories = BlogCategory::query()->orderByDesc('updated_at')->paginate('20');
@@ -49,17 +55,22 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $item = BlogCategory::findOrFail($id);
-        $categories = BlogCategory::all();
+        $item = $this->blogCategoryRepository->getEdit($id);
+        if (empty($item)) {
+            abort(404);
+        }
+        $categories = $this->blogCategoryRepository->getForComboBox();
         return view('blog.admin.categories.edit', compact('item', 'categories'));
     }
 
     public function update(BlogCategoryUpdateRequest $request, $id)
     {
         $item = BlogCategory::find($id);
+
         if (empty($item)) {
             return back()->with(["error" => "not found category with id ${id}"])->withInput();
         }
+
         $data = $request->all();
         if(empty($data['slug'])){
             $data['slug'] = Str::slug($data['name']);

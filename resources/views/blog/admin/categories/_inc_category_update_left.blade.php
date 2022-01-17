@@ -12,11 +12,21 @@
                     <div class="tab-pane active" id="mainData" role="tabpanel">
                         <div class="form-group">
                             <label for="name">Title</label>
+<<<<<<< HEAD:resources/views/blog/admin/categories/_inc_category_update_left.blade.php
                             <input type="text" name="name" id="name" class="form-control" minlength="3" required value="{{ old('name', $item->name) }}">
                         </div>
                         <div class="form-group">
                             <label for="slug">Slug</label>
                             <input type="text" name="slug" id="slug" class="form-control" minlength="3" value="{{ old('slug', $item->slug) }}">
+=======
+                            <input type="text" name="name" id="name" class="form-control"
+                                   minlength="3" required value="{{ old('name', $item->name) }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="slug">Slug</label>
+                            <input type="text" name="slug" id="slug" class="form-control"
+                                   minlength="3" value="{{ old('slug', $item->slug) }}">
+>>>>>>> ab3b9caa7bd444d82aa7787025b5fc15d4574609:resources/views/blog/admin/categories/_inc_category_left.blade.php
                         </div>
                         <div class="form-group">
                             <label for="parent_id">Parent</label>
@@ -24,8 +34,7 @@
                                     placeholder="Choose category">
                                 @foreach($categories as $categoryOption)
                                     @php /** @var \App\Models\BlogCategory $categoryOption  */ @endphp
-                                    <option value="{{ $categoryOption->id }}"
-                                            @if($categoryOption->id === $item->parent_id) selected @endif>{{ $categoryOption->name }}</option>
+                                    <option value="{{ $categoryOption->id }}" @if($categoryOption->id === $item->parent_id) selected @endif>{{ $categoryOption->id_name }}</option>
                                 @endforeach
                             </select>
                         </div>

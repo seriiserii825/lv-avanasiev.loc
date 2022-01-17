@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@php /** @var \App\Models\BlogCategory $item  */ @endphp
 @section('content')
     <form action="{{ route('admin_categories.update', $item->id) }}" method="post">
         @csrf

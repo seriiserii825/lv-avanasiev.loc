@@ -14,6 +14,7 @@
                                 <th>#</th>
                                 <th>Category</th>
                                 <th>Parent</th>
+                                <th>Updated at</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -25,10 +26,12 @@
                                         <a href="{{ route('admin_categories.edit', $category->id) }}">{{ $category->name }}</a>
                                     </td>
                                     <td>{{ $category->parent_id }}</td>
+                                    <td>{{ $category->updated_at }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
+
                         {{ $categories->links() }}
                     </div>
                 </div>
