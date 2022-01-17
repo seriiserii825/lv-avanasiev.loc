@@ -7,7 +7,6 @@ use App\Http\Requests\Blog\BlogCategoryStoreRequest;
 use App\Http\Requests\Blog\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
