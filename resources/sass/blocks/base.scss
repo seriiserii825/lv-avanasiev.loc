@@ -1,0 +1,66 @@
+html {
+    font-size: 62.5%;
+    @media screen and (max-width: 1200px) {
+        font-size: 50%;
+    }
+}
+body {
+    position: relative;
+    margin: 0;
+    //padding-bottom: 1200px;
+    font-size: 1.8rem;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        display: none;
+        width: 1px;
+        height: 100%;
+        background-color: green;
+    }
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+    font-weight: inherit;
+    font-size: inherit;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+.container-big {
+    margin: 0 auto;
+    padding: 0 15px;
+    max-width: 1800px;
+    width: 100%;
+}
+input[type="submit"]:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
+}
+.btn {
+    font-size: 1.8rem;
+}
+.navbar-brand {
+    font-size: 1.8rem;
+}
+.dropdown-menu {
+    font-size: 1.8rem;
+}

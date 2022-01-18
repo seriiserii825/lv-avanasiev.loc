@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 
 use App\BlogPost;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BlogPostRepository
 {
@@ -18,13 +19,28 @@ class BlogPostRepository
         $this->model = app($this->getModelClass());
     }
 
+    /**
+     * @param $count
+     * @return LengthAwarePaginator
+     */
     public function getAllWithPaginate($count = null)
     {
-        $fields = ['id', 'title'];
-        return $this->startConditions()
-            ->select($fields)
+        $columns = [
+            'id',
+            'title',
+            'category_id',
+            'user_id',
+            'is_published',
+            'published_at',
+            'updated_at',
+        ];
+        $result = $this->startConditions()
+            ->select($columns)
+            ->orderByDesc('id')
             ->paginate($count);
+        return $result;
     }
+
     /**
      * @return string
      */
