@@ -51,6 +51,11 @@ class BlogPostRepository
         return BlogPost::class;
     }
 
+    public function getEdit($id)
+    {
+        return $this->startConditions()->find($id);
+    }
+
     protected function startConditions()
     {
         return clone $this->model;

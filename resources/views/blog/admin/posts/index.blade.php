@@ -23,7 +23,7 @@
                             @php /** @var \App\BlogPost $post  */ @endphp
                             <tr @if(!$post->is_published) style="background-color: #ccc;"  @endif>
                                 <td>{{ $post->id }}</td>
-                                <td><a href="{{ route('admin_posts.create', $post->id) }}">{{ $post->title }}</a></td>
+                                <td><a href="{{ route('admin_posts.edit', $post->id) }}">{{ $post->title }}</a></td>
                                 <td>{{ $post->category->name }}</td>
                                 <td>{{ $post->user->name }}</td>
                                 <td>

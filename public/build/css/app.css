@@ -10101,4 +10101,15 @@ input[type=submit]:disabled {
   font-size: 1.8rem;
 }
 
+.tab-content > .tab-pane {
+  padding: 3rem 0;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.pointer label {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=app.css.map*/
