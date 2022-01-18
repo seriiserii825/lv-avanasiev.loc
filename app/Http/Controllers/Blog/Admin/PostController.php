@@ -85,7 +85,7 @@ class PostController extends Controller
         $data = $request->all();
 
         try {
-            $item->fill($data)->save();
+            $item->update($data);
             return redirect()->route('admin_posts.edit', $id)->with(['success' => 'Success save data']);
         } catch (QueryException $exception) {
             return back()->with(['error' => $exception->getMessage()]);
