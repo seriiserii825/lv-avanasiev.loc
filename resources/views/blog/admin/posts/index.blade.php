@@ -12,6 +12,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Title</th>
+                            <th>Category</th>
+                            <th>User</th>
                             <th>Is published</th>
                             <th>Updated at</th>
                         </tr>
@@ -22,6 +24,8 @@
                             <tr @if(!$post->is_published) style="background-color: #ccc;"  @endif>
                                 <td>{{ $post->id }}</td>
                                 <td><a href="{{ route('admin_posts.create', $post->id) }}">{{ $post->title }}</a></td>
+                                <td>{{ $post->category->name }}</td>
+                                <td>{{ $post->user->name }}</td>
                                 <td>
                                     <span>{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d-M H:i:s') : '' }}</span>
                                 </td>

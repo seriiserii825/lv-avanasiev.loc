@@ -36,6 +36,8 @@ class BlogPostRepository
         ];
         $result = $this->startConditions()
             ->select($columns)
+//            ->with(['category', 'user'])
+            ->with(['category:id,name', 'user:id,name'])
             ->orderByDesc('id')
             ->paginate($count);
         return $result;

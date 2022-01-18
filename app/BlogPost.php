@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -38,5 +39,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BlogPost extends Model
 {
-    //
+    protected $fillable = [
+        'title',
+        'slug',
+        'category_id',
+        'user_id',
+        'is_published',
+        'published_at',
+        'updated_at',
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
