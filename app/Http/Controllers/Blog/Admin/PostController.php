@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Blog\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\BlogCategoryRepository;
 use App\Http\Repositories\BlogPostRepository;
+use App\Http\Requests\Blog\BlogPostUpdateRequest;
+use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -69,14 +73,29 @@ class PostController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogPostUpdateRequest $request, $id)
     {
-        dd(__METHOD__, request()->all());
+        $item = $this->blogPostRepository->getEdit($id);
+        if (empty($item)) {
+            return back()->withErrors(["msg" => "Id with ${id} don't exists"])->withInput();
+        }
+        $data = $request->all();
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+        if(empty($item->published_at) && $data['is_published']){
+            $data['published_at'] = Carbon::now();
+        }
+        try {
+            $item->fill($data)->save();
+            return redirect()->route('admin_posts.edit', $id)->with(['success' => 'Success save data']);
+        } catch (QueryException $exception) {
+            return back()->with(['error' => $exception->getMessage()]);
+        }
     }
 
     /**

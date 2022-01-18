@@ -20,17 +20,17 @@
                                    value="{{ old('title', $item->title) }}">
                         </div>
                         <div class="form-group">
+                            <label for="slug">Slug</label>
+                            <input type="text" name="slug" id="slug" class="form-control" minlength="3"
+                                   value="{{ old('slug', $item->slug) }}">
+                        </div>
+                        <div class="form-group">
                             <label for="content_raw">Content raw</label>
                             <textarea class="form-control" name="content_raw" id="content_raw" width="100%"
                                       rows="20">{{ old('content_raw', $item->content_raw) }}</textarea>
                         </div>
                     </div>
                     <div class="tab-pane" id="advance" role="tabpanel">
-                        <div class="form-group">
-                            <label for="slug">Slug</label>
-                            <input type="text" name="slug" id="slug" class="form-control" minlength="3" required
-                                   value="{{ old('slug', $item->slug) }}">
-                        </div>
                         <div class="form-group">
                             <label for="category_id">Category</label>
                             <select name="category_id" id="category_id" class="form-control">
@@ -50,7 +50,7 @@
                             <label for="is_published">Is published</label>
                             <input name="is_published" type="hidden" value="0">
                             <input name="is_published" id="is_published" type="checkbox"
-                                   @if($item->is_published) checked="checked" @endif>
+                                   @if($item->is_published) checked="checked" @endif value="1">
                         </div>
                     </div>
                 </div>

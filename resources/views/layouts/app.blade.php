@@ -8,7 +8,7 @@
         <div class="container">
             @include('layouts.flash')
         </div>
-        <div class="container-big">
+        <div class="container">
             @yield('content')
         </div>
     </main>

@@ -50,6 +50,7 @@ class BlogPost extends Model
         'is_published',
         'published_at',
         'updated_at',
+        'created_at',
     ];
 
     public function category()

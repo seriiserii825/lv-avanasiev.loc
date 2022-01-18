@@ -10085,6 +10085,10 @@ input[type=submit]:disabled {
   opacity: 0.6 !important;
 }
 
+.container {
+  max-width: 1600px;
+}
+
 .btn {
   font-size: 1.8rem;
 }
