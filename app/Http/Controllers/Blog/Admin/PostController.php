@@ -84,12 +84,6 @@ class PostController extends Controller
         }
         $data = $request->all();
 
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
-        }
-        if(empty($item->published_at) && $data['is_published']){
-            $data['published_at'] = Carbon::now();
-        }
         try {
             $item->fill($data)->save();
             return redirect()->route('admin_posts.edit', $id)->with(['success' => 'Success save data']);
