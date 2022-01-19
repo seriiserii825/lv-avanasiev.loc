@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\BlogPost;
 use App\Models\BlogCategory;
+use Illuminate\Support\Str;
 
 class BlogCategoryObserver
 {
@@ -26,6 +28,18 @@ class BlogCategoryObserver
     public function updated(BlogCategory $blgoCategory)
     {
         //
+    }
+
+    public function updating(BlogCategory $blogCategory)
+    {
+        $this->setSlug($blogCategory);
+    }
+
+    protected function setSlug(BlogCategory $blogCategory)
+    {
+        if (empty($blogCategory->slug)) {
+            $blogCategory->slug = Str::slug($blogCategory->name);
+        }
     }
 
     /**

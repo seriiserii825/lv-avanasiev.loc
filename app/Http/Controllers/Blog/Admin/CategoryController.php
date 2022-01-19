@@ -70,9 +70,6 @@ class CategoryController extends Controller
         }
 
         $data = $request->all();
-        if(empty($data['slug'])){
-            $data['slug'] = Str::slug($data['name']);
-        }
         try {
             $item->fill($data)->save();
             return redirect()->route('admin_categories.edit', $id)->with(['success' => 'Success save data']);
