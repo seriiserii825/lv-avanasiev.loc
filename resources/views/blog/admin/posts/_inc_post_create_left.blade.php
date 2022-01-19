@@ -15,16 +15,18 @@
                     <div class="tab-pane active" id="mainData" role="tabpanel">
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" minlength="3" required>
+                            <input type="text" name="title" id="title" class="form-control" minlength="3"
+                                   value="{{ old('title') }}" required>
                         </div>
                         <div class="form-group">
                             <label for="slug">Slug</label>
-                            <input type="text" name="slug" id="slug" class="form-control" minlength="3">
+                            <input type="text" name="slug" id="slug" class="form-control" minlength="3"
+                                   value="{{ old('slug') }}">
                         </div>
                         <div class="form-group">
                             <label for="content_raw">Content raw</label>
                             <textarea class="form-control" name="content_raw" id="content_raw" width="100%"
-                                      rows="20"></textarea>
+                                      rows="20">{{ old('content_raw') }}</textarea>
                         </div>
                     </div>
                     <div class="tab-pane" id="advance" role="tabpanel">
@@ -39,7 +41,8 @@
                         </div>
                         <div class="form-group">
                             <label for="excerpt">Excerpt</label>
-                            <textarea class="form-control" name="excerpt" id="excerpt" width="100%" rows="6"></textarea>
+                            <textarea class="form-control" name="excerpt" id="excerpt" width="100%" rows="6"
+                            >{{ old('exceprt') }}</textarea>
                         </div>
                     </div>
                 </div>

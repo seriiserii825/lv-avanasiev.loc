@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\BlogPost;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class BlogPostObserver
@@ -19,6 +20,13 @@ class BlogPostObserver
         //
     }
 
+    public function creating(BlogPost $blogPost)
+    {
+        $this->setSlug($blogPost);
+        $this->setHtml($blogPost);
+        $this->setUser($blogPost);
+    }
+
     /**
      * Handle the blog post "updated" event.
      *
@@ -32,14 +40,14 @@ class BlogPostObserver
 
     public function updating(BlogPost $blogPost)
     {
-        $test[] = $blogPost->isDirty();
-        $test[] = $blogPost->isDirty('is_published');
-        $test[] = $blogPost->isDirty('user_id');
-        //получить значение измененного аттрибута
-        $test[] = $blogPost->getAttribute('is_published');
-        $test[] = $blogPost->is_published;
-        //получить значение аттрибута из базы
-        $test[] = $blogPost->getOriginal('is_published');
+//        $test[] = $blogPost->isDirty();
+//        $test[] = $blogPost->isDirty('is_published');
+//        $test[] = $blogPost->isDirty('user_id');
+//        //получить значение измененного аттрибута
+//        $test[] = $blogPost->getAttribute('is_published');
+//        $test[] = $blogPost->is_published;
+//        //получить значение аттрибута из базы
+//        $test[] = $blogPost->getOriginal('is_published');
 
         $this->setPublished($blogPost);
         $this->setSlug($blogPost);
@@ -52,11 +60,23 @@ class BlogPostObserver
         }
     }
 
-    protected function setSlug(BlogPost $blogPost)
+    protected function setSlug($blogPost)
     {
         if (empty($blogPost->slug)) {
             $blogPost->slug = Str::slug($blogPost->title);
         }
+    }
+
+    public function setHtml($blogPost)
+    {
+        if ($blogPost->isDirty('content_raw')) {
+            $blogPost->content_html = $blogPost->content_raw;
+        }
+    }
+
+    public function setUser($blogPost)
+    {
+        $blogPost->user_id = Auth::id();
     }
 
     /**

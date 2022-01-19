@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
+use App\BlogPost;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\BlogCategoryRepository;
 use App\Http\Repositories\BlogPostRepository;
+use App\Http\Requests\Blog\BlogPostCreateRequest;
 use App\Http\Requests\Blog\BlogPostUpdateRequest;
+use App\Models\BlogCategory;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -40,23 +43,19 @@ class PostController extends Controller
         return view('blog.admin.posts.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(BlogPostCreateRequest $request)
     {
-        //
+        $data = $request->input();
+        $item = new BlogPost($data);
+        $item->save();
+
+        if (!empty($item)) {
+            return redirect()->route('admin_posts.index')->with('success', 'Category was created');
+        } else {
+            return redirect()->back()->withError(["msg" => "Save fails"])->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
@@ -93,12 +92,6 @@ class PostController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         dd(__METHOD__);
