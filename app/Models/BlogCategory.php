@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read BlogCategory $parentCategory
  */
 class BlogCategory extends Model
 {

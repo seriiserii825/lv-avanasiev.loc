@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|BlogPost whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogPost whereUserId($value)
  * @mixin \Eloquent
+ * @property-read BlogCategory $category
+ * @property-read \App\User $user
  */
 class BlogPost extends Model
 {

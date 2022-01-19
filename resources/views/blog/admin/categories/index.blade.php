@@ -24,7 +24,7 @@
                                 <td>
                                     <a href="{{ route('admin_categories.edit', $category->id) }}">{{ $category->name }}</a>
                                 </td>
-                                <td>{{ $category->parent_id }}</td>
+                                <td>{{ $category->parentCategory->name }}</td>
                                 <td>{{ $category->updated_at }}</td>
                             </tr>
                         @endforeach

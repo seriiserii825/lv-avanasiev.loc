@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
+use App\BlogPost;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\BlogCategoryRepository;
 use App\Http\Requests\BlogCategory\BlogCategoryCreateRequest;
@@ -13,14 +14,15 @@ use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     private $blogCategoryRepository;
+
     public function __construct()
     {
-       $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
     }
 
     public function index()
     {
-        $categories = BlogCategory::query()->orderByDesc('updated_at')->paginate('20');
+        $categories = $this->blogCategoryRepository->getAllWithPaginate(20);
         return view('blog.admin.categories.index', compact('categories'));
     }
 
@@ -32,13 +34,13 @@ class CategoryController extends Controller
 
     public function store(BlogCategoryCreateRequest $request)
     {
-       $data = $request->input();
-       $item = new BlogCategory($data);
-       $item->save();
+        $data = $request->input();
+        $item = new BlogCategory($data);
+        $item->save();
 
         if ($item) {
             return redirect()->route('admin_categories.index')->with('success', 'Category was created');
-        }else{
+        } else {
             return redirect()->back()->withError(["msg" => "Save fails"])->withInput();
         }
     }
