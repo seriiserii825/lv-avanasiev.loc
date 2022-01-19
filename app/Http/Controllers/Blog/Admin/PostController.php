@@ -8,6 +8,7 @@ use App\Http\Repositories\BlogCategoryRepository;
 use App\Http\Repositories\BlogPostRepository;
 use App\Http\Requests\Blog\BlogPostCreateRequest;
 use App\Http\Requests\Blog\BlogPostUpdateRequest;
+use App\Jobs\BlogPostAfterCreateJob;
 use App\Models\BlogCategory;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
@@ -48,6 +49,9 @@ class PostController extends Controller
         $data = $request->input();
         $item = new BlogPost($data);
         $item->save();
+
+        $job = new BlogPostAfterCreateJob($item);
+        $this->dispatch($job);
 
         if (!empty($item)) {
             return redirect()->route('admin_posts.index')->with('success', 'Category was created');
