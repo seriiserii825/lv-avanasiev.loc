@@ -29,4 +29,9 @@ use Illuminate\Database\Eloquent\Model;
 class BlogCategory extends Model
 {
     protected $fillable = ['name', 'slug', 'description', 'parent_id'];
+
+    public function parentCategory()
+    {
+        return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
+    }
 }
