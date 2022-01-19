@@ -94,6 +94,11 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        dd(__METHOD__);
+        try {
+            BlogPost::find($id)->delete();
+            return redirect()->route('admin_posts.index')->with('success', "Post ${id} was deleted");
+        } catch (QueryException $e) {
+            return back()->withErrors(['msg' => $e->getMessage()]);
+        }
     }
 }
