@@ -36,7 +36,8 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('blog.admin.posts.create');
+        $categories = $this->blogCategoryRepository->getForComboBox();
+        return view('blog.admin.posts.create', compact('categories'));
     }
 
     /**

@@ -10116,4 +10116,8 @@ input[type=submit]:disabled {
   cursor: pointer;
 }
 
+.app {
+  min-height: 120vh;
+}
+
 /*# sourceMappingURL=app.css.map*/

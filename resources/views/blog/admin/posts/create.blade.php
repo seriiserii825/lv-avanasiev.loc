@@ -1,15 +1,18 @@
 @extends('layouts.app')
-@php /** @var \App\Models\BlogCategory $item  */ @endphp
 @section('content')
-    <form action="{{ route('admin_categories.store') }}" method="post">
+    @php /** @var \App\BlogPost $item  */ @endphp
+    <form action="{{ route('admin_posts.store') }}" method="post">
         @csrf
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <h3>Create</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        @include('blog.admin.posts._inc_post_create_left')
+                    </div>
                 </div>
-                <div class="col-md-4">
-                </div>
+            </div>
+            <div class="col-md-4">
+                @include('blog.admin.posts._inc_post_create_right')
             </div>
         </div>
     </form>
