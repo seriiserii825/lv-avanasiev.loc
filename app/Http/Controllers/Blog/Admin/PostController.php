@@ -16,6 +16,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use PHPUnit\Exception;
 
 class PostController extends Controller
 {
@@ -70,8 +71,9 @@ class PostController extends Controller
 //            $item = $this->blogPostRepository->getEdit($id);
             $item = BlogPost::query()->findOrFail($id);
             $categories = $this->blogCategoryRepository->getForComboBox();
+            $some = $item->attributes();
             return view('blog.admin.posts.edit', compact('item', 'categories'));
-        } catch (ModelNotFoundException $exception) {
+        } catch (\Exception $exception) {
             return redirect()->route('admin_posts.index')->withErrors(['msg' => $exception->getMessage()]);
         }
 
