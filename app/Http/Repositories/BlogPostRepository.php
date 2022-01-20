@@ -53,7 +53,7 @@ class BlogPostRepository
 
     public function getEdit($id)
     {
-        return $this->startConditions()->find($id);
+        return $this->startConditions()->findOrFail($id);
     }
 
     protected function startConditions()

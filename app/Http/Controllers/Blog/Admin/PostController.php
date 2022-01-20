@@ -11,8 +11,10 @@ use App\Http\Requests\Blog\BlogPostUpdateRequest;
 use App\Jobs\BlogPostAfterCreateJob;
 use App\Models\BlogCategory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -50,9 +52,6 @@ class PostController extends Controller
         $item = new BlogPost($data);
         $item->save();
 
-        $job = new BlogPostAfterCreateJob($item);
-        $this->dispatch($job);
-
         if (!empty($item)) {
             return redirect()->route('admin_posts.index')->with('success', 'Category was created');
         } else {
@@ -67,12 +66,15 @@ class PostController extends Controller
 
     public function edit($id)
     {
-        $item = $this->blogPostRepository->getEdit($id);
-        if (empty($item)) {
-            abort(404);
+        try {
+//            $item = $this->blogPostRepository->getEdit($id);
+            $item = BlogPost::query()->findOrFail($id);
+            $categories = $this->blogCategoryRepository->getForComboBox();
+            return view('blog.admin.posts.edit', compact('item', 'categories'));
+        } catch (ModelNotFoundException $exception) {
+            return redirect()->route('admin_posts.index')->withErrors(['msg' => $exception->getMessage()]);
         }
-        $categories = $this->blogCategoryRepository->getForComboBox();
-        return view('blog.admin.posts.edit', compact('item', 'categories'));
+
     }
 
     /**
