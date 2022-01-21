@@ -44,11 +44,11 @@ class BlogPost extends Model
     protected $fillable = [
         'title',
         'slug',
+        'user_id',
         'category_id',
         'excerpt',
         'content_raw',
         'content_html',
-        'user_id',
         'is_published',
         'published_at',
         'updated_at',
