@@ -14,6 +14,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserTableSeeder::class);
         $this->call(BlogCategorySeeder::class);
+        $users = \App\User::all();
+        $result = [];
+        foreach ($users as $user) {
+            $result[] = $user->id;
+        }
+//        dd($result);
         factory(BlogPost::class, 1)->create();
     }
 }
+
+?>

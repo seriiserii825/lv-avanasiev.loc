@@ -71,7 +71,6 @@ class PostController extends Controller
 //            $item = $this->blogPostRepository->getEdit($id);
             $item = BlogPost::query()->findOrFail($id);
             $categories = $this->blogCategoryRepository->getForComboBox();
-            $some = $item->attributes();
             return view('blog.admin.posts.edit', compact('item', 'categories'));
         } catch (\Exception $exception) {
             return redirect()->route('admin_posts.index')->withErrors(['msg' => $exception->getMessage()]);

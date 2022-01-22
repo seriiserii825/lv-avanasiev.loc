@@ -16,7 +16,9 @@ class CreateBlogPostsTable extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('category_id');
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('category_id')->references('id')->on('blog_categories');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('excerpt')->nullable();
@@ -24,7 +26,6 @@ class CreateBlogPostsTable extends Migration
             $table->text('content_html');
             $table->boolean('is_published')->default(false)->index();
             $table->timestamp('published_at')->nullable();
-            $table->foreign('category_id')->references('id')->on('blog_categories');
             $table->timestamps();
         });
     }

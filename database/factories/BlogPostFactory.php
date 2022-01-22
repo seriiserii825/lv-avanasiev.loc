@@ -8,16 +8,15 @@ use Illuminate\Support\Str;
 
 $factory->define(BlogPost::class, function (Faker $faker) {
     $title = $faker->sentence(rand(3, 8), true);
-    $text = $faker->realText(rand(1000, 4000));
+    $text = $faker->realText(rand(10, 40));
     $isPublished = rand(1, 5) > 1;
     $createdAt = $faker->dateTimeBetween('-6 months', '-1 day');
-
-    return [
+    $result = [
         'category_id' => rand(1, 10),
-//        'user_id' => '2',
+        'user_id' => 1,
         'title' => $title,
         'slug' => Str::slug($title),
-        'excerpt' => $faker->text(rand(100, 400)),
+        'excerpt' => $faker->text(rand(10, 40)),
         'content_raw' => $text,
         'content_html' => $text,
         'is_published' => $isPublished,
@@ -25,4 +24,5 @@ $factory->define(BlogPost::class, function (Faker $faker) {
         'created_at' => $createdAt,
         'updated_at' => $createdAt
     ];
+    return $result;
 });
