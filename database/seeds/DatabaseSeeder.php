@@ -12,16 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserTableSeeder::class);
+        $user = \App\User::create([
+            'name' => 'Admin',
+            'email' => 'seriiburduja@mail.ru',
+            'password' => bcrypt('some1234')
+        ]);
         $this->call(BlogCategorySeeder::class);
-        $users = \App\User::all();
-        $result = [];
-        foreach ($users as $user) {
-            $result[] = $user->id;
-        }
-//        dd($result);
-        factory(BlogPost::class, 1)->create();
+        $user->blogposts()->saveMany(BlogPost::factory(1));
     }
 }
-
 ?>

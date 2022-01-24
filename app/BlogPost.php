@@ -41,6 +41,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BlogPost extends Model
 {
+
+    use HasFactory;
+
     protected $fillable = [
 //        'title',
         'slug',
@@ -60,7 +63,7 @@ class BlogPost extends Model
         return $this->belongsTo(BlogCategory::class);
     }
 
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class);
     }
